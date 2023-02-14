@@ -62,8 +62,11 @@ else()
 endif()
 
 target_sources(simple_setup_test_py
+	PRIVATE
+		${CMAKE_CURRENT_LIST_DIR}/calc/SampleClass.cpp
 	PUBLIC
 		${CMAKE_CURRENT_LIST_DIR}/calc/TopologyCalc.h
+		${CMAKE_CURRENT_LIST_DIR}/calc/SampleClass.h
 )
 
 set_target_properties(simple_setup_test_py PROPERTIES VERSION ${PROJECT_VERSION})

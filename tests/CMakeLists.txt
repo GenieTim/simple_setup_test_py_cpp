@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15.0)
 
 cmake_policy(SET CMP0077 NEW)
 
-project(simple_setup_py_tests VERSION "0.1.15" LANGUAGES CXX)
+project(simple_setup_test_py_tests VERSION "0.1.15" LANGUAGES CXX)
 
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -79,12 +79,12 @@ PRIVATE
 	${nlopt_LIBRARIES}
 )
 
-add_executable(simple_setup_py_tests simple_setup_test_py/test.cpp)
+add_executable(simple_setup_test_py_tests simple_setup_test_py/test.cpp)
 
-add_dependencies(simple_setup_py_tests simple_setup_test_py)
-add_dependencies(simple_setup_py_tests test_sources)
+add_dependencies(simple_setup_test_py_tests simple_setup_test_py)
+add_dependencies(simple_setup_test_py_tests test_sources)
 
-target_link_libraries(simple_setup_py_tests 
+target_link_libraries(simple_setup_test_py_tests 
 	PRIVATE 
 	Catch2::Catch2WithMain
 	test_sources
@@ -135,7 +135,7 @@ if (LEAK_ANALYSIS)
 		PRIVATE
 		-fsanitize=address
 	)
-	target_link_libraries(simple_setup_py_tests 
+	target_link_libraries(simple_setup_test_py_tests 
 		PRIVATE
 		-fsanitize=address
 	)
@@ -148,7 +148,7 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 include(CTest)
 include(Catch)
-catch_discover_tests(simple_setup_py_tests)
+catch_discover_tests(simple_setup_test_py_tests)
 
 catch_discover_tests(header_tests)
 
@@ -156,17 +156,17 @@ if(CODE_COVERAGE)
 	
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g -fprofile-arcs -ftest-coverage")
 	set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} -O0 -g -fprofile-arcs -ftest-coverage")
-	target_compile_options(simple_setup_py_tests PRIVATE -O0 -g -fprofile-arcs -ftest-coverage )
+	target_compile_options(simple_setup_test_py_tests PRIVATE -O0 -g -fprofile-arcs -ftest-coverage )
 
 	if(CMAKE_COMPILER_IS_GNUCXX)
 		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-abs-path")
 		set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} -fprofile-abs-path")
-		target_compile_options(simple_setup_py_tests PRIVATE -fprofile-abs-path)
+		target_compile_options(simple_setup_test_py_tests PRIVATE -fprofile-abs-path)
 	endif()
 
-	add_coverage(simple_setup_py_tests)
+	add_coverage(simple_setup_test_py_tests)
 	target_link_libraries(
-		simple_setup_py_tests
+		simple_setup_test_py_tests
 		PRIVATE
 		--coverage
 	)
