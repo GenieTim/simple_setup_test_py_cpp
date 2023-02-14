@@ -1,0 +1,6 @@
+﻿---
+BasedOnStyle: Mozilla
+NamespaceIndentation: Inner
+Standard: Cpp11
+
+...

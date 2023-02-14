@@ -1,0 +1,79 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    name: Run Python + C++ Tests
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          submodules: "recursive"
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ./_skbuild
+            ./vendor/igraph
+            ./vendor/nlopt
+            ./tests/build
+          key: ${{ runner.os }}-py-3.10.6-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-py-3.10.6-
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.6'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Install dev dependencies
+        run: sudo apt-get install bison flex lcov libeigen3-dev
+      
+      - name: Run Tests
+        run: ./bin/run-tests.sh
+      
+      # Generate Coverage Badge
+      - name: Install Badge Generator
+        run: pip install genbadge[coverage]
+
+      - name: Coverage Badge
+        run: genbadge coverage -i coverage.xml -o ".github/coverage.svg"
+      
+      - name: Upload to CodeCov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          fail_ci_if_error: false # optional (default = false)
+          verbose: true # optional (default = false)
+          # gcov: true
+
+      # Commit Coverage Badge if applicable
+      - name: Verify Changed files
+        uses: tj-actions/verify-changed-files@v6
+        id: changed_files
+        with:
+          files: .github/coverage.svg
+
+      - name: Commit files
+        if: steps.changed_files.outputs.files_changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .github/coverage.svg
+          git commit -m "Updated coverage.svg"
+
+      - name: Push changes
+        if: steps.changed_files.outputs.files_changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          branch: ${{ github.ref }}

@@ -1,0 +1,10 @@
+include CMakeLists.txt
+include vendor/CMakeLists.txt
+include README.md
+include src/simple_setup_test_py/data/everaers_et_al_unit_properties.xlsx
+global-include src/**/CMakeLists.txt
+global-include src/simple_setup_test_py_cpp/**/*.h
+global-include src/simple_setup_test_py_cpp/**/*.cpp
+exclude .github
+exclude src/test
+exclude tests
