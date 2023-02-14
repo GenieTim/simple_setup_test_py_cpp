@@ -29,12 +29,12 @@ See the [documentation](https://genietim.github.io/simple_setup_test_py_cpp) for
 ### Example
 
 Example useage can be found in the [documentation](https://genietim.github.io/simple_setup_test_py_cpp), the [tests](https://github.com/GenieTim/simple_setup_test_py_cpp/tree/main/tests),
-the [CLI application](https://github.com/GenieTim/simple_setup_test_py_cpp/tree/main//src/pylimer_tools/pylimer_tools.py) or in the following code snippet:
+the [CLI application](https://github.com/GenieTim/simple_setup_test_py_cpp/tree/main//src/simple_setup_test_py/simple_setup_test_py.py) or in the following code snippet:
 
 ```python
 import numpy as np
 
-from pylimer_tools_cpp import UniverseSequence
+from simple_setup_test_py_cpp import UniverseSequence
 
 filePath = "some_lammps_output_file.dat"
 universeSequence = UniverseSequence()
