@@ -6,7 +6,7 @@ if (POLICY CMP0025)
 endif ()
 
 # start project
-project(simple_setup_test_py VERSION "0.1.11")
+project(simple_setup_test_py VERSION "0.1.0")
 
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -61,10 +61,6 @@ add_dependencies(simple_setup_test_py igraphLib)
 add_dependencies(simple_setup_test_py nlopt)
 
 pybind11_add_module(simple_setup_test_py_cpp MODULE 
-  src/simple_setup_test_py_cpp/pybind11/entities.cpp
-  src/simple_setup_test_py_cpp/pybind11/readers.cpp
-  src/simple_setup_test_py_cpp/pybind11/writers.cpp
-  src/simple_setup_test_py_cpp/pybind11/generators.cpp
   src/simple_setup_test_py_cpp/pybind11/calculations.cpp
   src/simple_setup_test_py_cpp/pybind11/simple_setup_test_py_cpp.cpp
 )
