@@ -6,7 +6,7 @@
 namespace simple_setup_test_py {
 namespace calc {
 
-  Eigen::Vector3d pointsToVector3d(double x, double y, double z)
+  static Eigen::Vector3d pointsToVector3d(double x, double y, double z)
   {
     Eigen::Vector3d vec;
     vec[0] = x;
@@ -15,7 +15,7 @@ namespace calc {
     return vec;
   }
 
-  bool segmentIntersectsTriangleWhere(Eigen::Vector3d rayOrigin,
+  static bool segmentIntersectsTriangleWhere(Eigen::Vector3d rayOrigin,
                                       Eigen::Vector3d rayTarget,
                                       Eigen::Vector3d vertex0,
                                       Eigen::Vector3d vertex1,
@@ -69,7 +69,7 @@ namespace calc {
     return false;
   };
 
-  bool segmentIntersectsTriangle(Eigen::Vector3d rayOrigin,
+  static bool segmentIntersectsTriangle(Eigen::Vector3d rayOrigin,
                                  Eigen::Vector3d rayTarget,
                                  Eigen::Vector3d vertex0,
                                  Eigen::Vector3d vertex1,

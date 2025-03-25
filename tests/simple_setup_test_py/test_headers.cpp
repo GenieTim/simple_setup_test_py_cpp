@@ -1,6 +1,7 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "../../src/simple_setup_test_py_cpp/calc/TopologyCalc.h"
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <filesystem>
@@ -11,8 +12,59 @@ extern "C"
 #include <igraph/igraph.h>
 }
 
-
 TEST_CASE("TESTS ARE RUN", "[general]")
 {
   REQUIRE(1 == 2 - 1);
+}
+
+TEST_CASE("Segment Intersection is found", "[TopologyCalc]")
+{
+  REQUIRE(1 == 2 - 1);
+  Eigen::Vector3d vertex1;
+  vertex1 << -1.0, -1.0, 0.0;
+  Eigen::Vector3d vertex2;
+  vertex2 << 1.0, -1.0, 0.0;
+  Eigen::Vector3d vertex3;
+  vertex3 << 1.0, 1.0, 0.0;
+
+  SECTION("Intersection is found")
+  {
+    Eigen::Vector3d rayOrigin;
+    rayOrigin << 0.5, -0.5, -1.0;
+    Eigen::Vector3d rayTarget;
+    rayTarget << 0.5, -0.5, 1.0;
+
+    Eigen::Vector3d intersectionPoint;
+
+    REQUIRE(simple_setup_test_py::calc::segmentIntersectsTriangleWhere(
+      rayOrigin, rayTarget, vertex1, vertex2, vertex3, intersectionPoint));
+  }
+
+  SECTION("Intersection should not be found")
+  {
+    Eigen::Vector3d rayOrigin;
+    rayOrigin << -0.5, 0.5, -1.0;
+    Eigen::Vector3d rayTarget;
+    rayTarget << -0.5, 0.5, 1.0;
+
+    Eigen::Vector3d intersectionPoint;
+
+    REQUIRE_FALSE(simple_setup_test_py::calc::segmentIntersectsTriangleWhere(
+      rayOrigin, rayTarget, vertex1, vertex2, vertex3, intersectionPoint));
+  }
+
+  SECTION("Intersection should not be found in too short segment")
+  {
+    Eigen::Vector3d rayOrigin;
+    rayOrigin << 0.5, -0.5, -1.0;
+    Eigen::Vector3d rayTarget;
+    rayTarget << 0.5, -0.5, -2.0;
+
+    Eigen::Vector3d intersectionPoint;
+
+    REQUIRE_FALSE(simple_setup_test_py::calc::segmentIntersectsTriangleWhere(
+      rayOrigin, rayTarget, vertex1, vertex2, vertex3, intersectionPoint));
+    REQUIRE_FALSE(simple_setup_test_py::calc::segmentIntersectsTriangle(
+      rayOrigin, rayTarget, vertex1, vertex2, vertex3));
+  }
 }

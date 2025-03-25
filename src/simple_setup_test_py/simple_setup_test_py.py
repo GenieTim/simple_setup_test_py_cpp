@@ -3,7 +3,7 @@
 import click
 import numpy as np
 
-from simple_setup_test_py_cpp import UniverseSequence
+from simple_setup_test_py_cpp import SampleClass
 
 
 @click.command()
@@ -17,8 +17,9 @@ def cli(files):
     """
     click.echo("Processing {} files".format(len(files)))
     for filePath in files:
-        click.echo("\nAnalysing File " + filePath)
-    click.echo("Arbitrary units used. E.g.: Length: u")
+        click.echo("\nNOT Analysing File " + filePath)
+    sample_obj = SampleClass()
+    
 
 
 if __name__ == "__main__":

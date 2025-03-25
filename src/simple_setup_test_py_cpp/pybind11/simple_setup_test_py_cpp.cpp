@@ -1,4 +1,4 @@
-
+#include "../calc/SampleClass.h"
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
@@ -13,7 +13,7 @@ PYBIND11_MODULE(simple_setup_test_py_cpp, m)
     Simple Cpp Py Setup Tester
     -----------------
 
-    A setup to test.
+    A setup to test the setup and the tests.
 
     .. autosummary::
         :toctree: _generate
@@ -21,4 +21,10 @@ PYBIND11_MODULE(simple_setup_test_py_cpp, m)
     )pbdoc";
 
   init_setup_test_bound_calc(m);
+
+  py::class_<simple_setup_test_py::calc::SampleClass>(
+    m, "SampleClass", py::module_local())
+    .def(py::init<>())
+    .def("set_value", &simple_setup_test_py::calc::SampleClass::setValue)
+    .def("get_value", &simple_setup_test_py::calc::SampleClass::getValue);
 }
