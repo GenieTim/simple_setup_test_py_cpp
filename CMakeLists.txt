@@ -34,24 +34,7 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/vendor/CMakeLists.txt)
 
 # prepare python bindings
-# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-list(APPEND CMAKE_MODULE_PATH /usr/local/anaconda3/lib/python3.7/site-packages/skbuild/resources/cmake/)
-find_package(PythonExtensions REQUIRED)
-
-if(SKBUILD)
-  # Scikit-Build does not add your site-packages to the search path
-  # automatically, so we need to add it _or_ the pybind11 specific directory
-  # here.
-  execute_process(
-    COMMAND "${PYTHON_EXECUTABLE}" -c
-            "import pybind11; print(pybind11.get_cmake_dir())"
-    OUTPUT_VARIABLE _tmp_dir
-    OUTPUT_STRIP_TRAILING_WHITESPACE COMMAND_ECHO STDOUT)
-  list(APPEND CMAKE_PREFIX_PATH "${_tmp_dir}")
-endif()
-
-# Now we can find pybind11
-find_package(pybind11 CONFIG REQUIRED)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/extern/pybind11)
 
 message("Using toolchain file ${CMAKE_TOOLCHAIN_FILE}")
 
@@ -69,26 +52,14 @@ target_link_libraries(simple_setup_test_py_cpp
     simple_setup_test_py
 )
 
-
-if(CMAKE_COMPILER_IS_GNUCXX)
-target_link_libraries(simple_setup_test_py_cpp 
-  PUBLIC 
-    stdc++fs
-)
-endif()
-
-# link Eigen libraries. Difficulty due to Windows GitHub Action, somehow.
-if (TARGET Eigen3::Eigen)
-	message(STATUS "Target Eigen3::Eigen found")
-	target_link_libraries(simple_setup_test_py PUBLIC Eigen3::Eigen)
-else()
-	include_directories(${EIGEN3_INCLUDE_DIRS})
-	include_directories(${EIGEN3_INCLUDE_DIRS}/eigen3)
-	target_link_libraries(simple_setup_test_py PUBLIC ${EIGEN3_LIBRARIES})
-	message(STATUS "Eigen include directories: ${EIGEN3_INCLUDE_DIRS}, libraries ${EIGEN3_LIBRARIES}")
+if(CMAKE_CXX_COMPILER_ID IN_LIST "Intel;GNU")
+  target_link_libraries(pylimer_tools_cpp 
+    PUBLIC 
+      stdc++fs
+  )
 endif()
 
 # compile & install
-target_compile_definitions(simple_setup_test_py_cpp PRIVATE VERSION_INFO=${PROJECT_VERSION})
+target_compile_definitions(pylimer_tools_cpp PRIVATE VERSION_INFO=${PROJECT_VERSION})
 
-install(TARGETS simple_setup_test_py_cpp LIBRARY DESTINATION .)
+install(TARGETS pylimer_tools_cpp LIBRARY DESTINATION .)
