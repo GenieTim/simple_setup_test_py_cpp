@@ -80,7 +80,6 @@ target_link_libraries(simple_setup_test_py_tests
 
 add_library(header_test_sources
 	OBJECT
-		simple_setup_test_py/test_headers.cpp
 		simple_setup_test_py/test_vector_utils.cpp
 )
 add_dependencies(header_test_sources simple_setup_test_py)
