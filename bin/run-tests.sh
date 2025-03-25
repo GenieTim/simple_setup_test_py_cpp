@@ -38,7 +38,7 @@ if command -v npx; then
 fi
 
 # then, build/install project for Python
-python -m pip install --verbose -e . || exit 3
+python -m pip install --verbose . || exit 3 # -e
 
 cd "$ROOT_DIR" || exit 4
 
