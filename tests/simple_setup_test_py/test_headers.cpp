@@ -24,11 +24,11 @@ TEST_CASE("Eigen Vectors are constructed", "[TopologyCalc]")
 
   CHECK(vertex1.isApprox(Eigen::Vector3d(-1.0, -1.0, 0.0)));
   CHECK(vertex1.isApprox(
-    simple_setup_test_py::cal::pointsToVector3d(-1.0, -1.0, 0.0)));
+    simple_setup_test_py::calc::pointsToVector3d(-1.0, -1.0, 0.0)));
   CHECK(vertex2.isApprox(Eigen::Vector3d(1.0, -1.0, 0.0)));
   CHECK(vertex2.isApprox(
-    simple_setup_test_py::cal::pointsToVector3d(1.0, -1.0, 0.0)));
+    simple_setup_test_py::calc::pointsToVector3d(1.0, -1.0, 0.0)));
   CHECK(vertex3.isApprox(Eigen::Vector3d(1.0, 1.0, 0.0)));
   CHECK(vertex3.isApprox(
-    simple_setup_test_py::cal::pointsToVector3d(1.0, 1.0, 0.0)));
+    simple_setup_test_py::calc::pointsToVector3d(1.0, 1.0, 0.0)));
 }
