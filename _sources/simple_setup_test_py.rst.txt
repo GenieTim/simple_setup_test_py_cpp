@@ -17,13 +17,13 @@ simple\_setup\_test\_py.simple\_setup\_test\_py module
 
 .. automodule:: simple_setup_test_py.simple_setup_test_py
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: simple_setup_test_py
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

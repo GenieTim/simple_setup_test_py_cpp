@@ -4,42 +4,18 @@ simple\_setup\_test\_py.utils package
 Submodules
 ----------
 
-simple\_setup\_test\_py.utils.cacheUtility module
--------------------------------------------------
-
-.. automodule:: simple_setup_test_py.utils.cacheUtility
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-simple\_setup\_test\_py.utils.getTail module
---------------------------------------------
-
-.. automodule:: simple_setup_test_py.utils.getTail
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-simple\_setup\_test\_py.utils.optimizeDf module
+simple\_setup\_test\_py.utils.comp\_util module
 -----------------------------------------------
 
-.. automodule:: simple_setup_test_py.utils.optimizeDf
+.. automodule:: simple_setup_test_py.utils.comp_util
    :members:
-   :undoc-members:
    :show-inheritance:
-
-simple\_setup\_test\_py.utils.unifyDataStepsizes module
--------------------------------------------------------
-
-.. automodule:: simple_setup_test_py.utils.unifyDataStepsizes
-   :members:
    :undoc-members:
-   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: simple_setup_test_py.utils
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
