@@ -8,12 +8,12 @@
 #include <iostream>
 #include <string>
 
-TEST_CASE("TESTS ARE RUN", "[general]")
+TEST_CASE("HEADER: TESTS ARE RUN", "[general]")
 {
   REQUIRE(1 == 2 - 1);
 }
 
-TEST_CASE("Segment Intersection is found", "[TopologyCalc]")
+TEST_CASE("HEADER: Segment Intersection is found", "[TopologyCalc]")
 {
   REQUIRE(1 == 2 - 1);
   Eigen::Vector3d vertex1;

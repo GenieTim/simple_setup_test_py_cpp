@@ -53,13 +53,13 @@ target_link_libraries(simple_setup_test_py_cpp
 )
 
 if(CMAKE_CXX_COMPILER_ID IN_LIST "Intel;GNU")
-  target_link_libraries(pylimer_tools_cpp 
+  target_link_libraries(simple_setup_test_py_cpp 
     PUBLIC 
       stdc++fs
   )
 endif()
 
 # compile & install
-target_compile_definitions(pylimer_tools_cpp PRIVATE VERSION_INFO=${PROJECT_VERSION})
+target_compile_definitions(simple_setup_test_py_cpp PRIVATE VERSION_INFO=${PROJECT_VERSION})
 
-install(TARGETS pylimer_tools_cpp LIBRARY DESTINATION .)
+install(TARGETS simple_setup_test_py_cpp LIBRARY DESTINATION .)

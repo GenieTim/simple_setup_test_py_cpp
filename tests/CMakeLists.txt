@@ -53,8 +53,8 @@ add_subdirectory(../src/simple_setup_test_py_cpp simple_setup_test_py.out)
 add_library(test_sources 
 	OBJECT 
 		simple_setup_test_py/test_calc.cpp 
+		simple_setup_test_py/test_sample_class.cpp 
 )
-# simple_setup_test_py/test_force_balance2.cpp
 
 add_dependencies(test_sources simple_setup_test_py)
 include_directories(${EIGEN3_INCLUDE_DIRS})
@@ -80,7 +80,7 @@ target_link_libraries(simple_setup_test_py_tests
 
 add_library(header_test_sources
 	OBJECT
-		simple_setup_test_py/test_calc.cpp
+		simple_setup_test_py/test_headers.cpp
 		simple_setup_test_py/test_vector_utils.cpp
 )
 add_dependencies(header_test_sources simple_setup_test_py)
