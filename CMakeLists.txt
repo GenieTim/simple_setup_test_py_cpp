@@ -57,26 +57,16 @@ message("Using toolchain file ${CMAKE_TOOLCHAIN_FILE}")
 
 # add sources & targets
 add_subdirectory(src/simple_setup_test_py_cpp)
-add_dependencies(simple_setup_test_py igraphLib)
-add_dependencies(simple_setup_test_py nlopt)
 
 pybind11_add_module(simple_setup_test_py_cpp MODULE 
   src/simple_setup_test_py_cpp/pybind11/calculations.cpp
   src/simple_setup_test_py_cpp/pybind11/simple_setup_test_py_cpp.cpp
 )
 
-# add other dependencies
-include_directories(${igraph_INCLUDE_DIRS})
-include_directories(${nlopt_INCLUDE_DIRS})
-
-message("simple_setup_test_py_cpp includes igraph from ${igraph_INCLUDE_DIRS}")
-
 # link
 target_link_libraries(simple_setup_test_py_cpp 
   PUBLIC 
     simple_setup_test_py
-    ${igraph_LIBRARIES}
-    ${nlopt_LIBRARIES}
 )
 
 

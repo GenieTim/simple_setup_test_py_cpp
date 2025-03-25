@@ -47,14 +47,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-# and other needed packages
-# setupIgraph()
-# find_package(igraph REQUIRED)
-# if(igraph_FOUND)
-# else()
-# 	message(WARNING "DID NOT FIND igraph")
-# endif()
-
 # add sources & targets
 add_subdirectory(../src/simple_setup_test_py_cpp simple_setup_test_py.out)
 
@@ -65,18 +57,13 @@ add_library(test_sources
 # simple_setup_test_py/test_force_balance2.cpp
 
 add_dependencies(test_sources simple_setup_test_py)
-include_directories(${igraph_INCLUDE_DIRS})
-include_directories(${nlopt_INCLUDE_DIRS})
 include_directories(${EIGEN3_INCLUDE_DIRS})
 include_directories(${EIGEN3_INCLUDE_DIRS}/eigen3)
-message("Found igraph for tests. Including ${igraph_INCLUDE_DIRS}, linking to ${igraph_LIBRARIES}")
 
 target_link_libraries(test_sources 
 PRIVATE
 	Catch2::Catch2
 	simple_setup_test_py
-	${igraph_LIBRARIES}
-	${nlopt_LIBRARIES}
 )
 
 add_executable(simple_setup_test_py_tests simple_setup_test_py/test.cpp)
@@ -89,8 +76,6 @@ target_link_libraries(simple_setup_test_py_tests
 	Catch2::Catch2WithMain
 	test_sources
 	simple_setup_test_py
-	${igraph_LIBRARIES}
-	${nlopt_LIBRARIES}
 )
 
 add_library(header_test_sources
@@ -117,14 +102,12 @@ endif()
 # separate the header tests out, for the coverage generation
 add_executable(header_tests simple_setup_test_py/test_headers.cpp)
 
-add_dependencies(header_tests igraphLib)
 add_dependencies(header_tests header_test_sources)
 
 target_link_libraries(header_tests 
 	PRIVATE 
 	Catch2::Catch2WithMain
 	header_test_sources
-	${igraph_LIBRARIES}
 	${EIGEN3_LIBRARIES}
 )
 

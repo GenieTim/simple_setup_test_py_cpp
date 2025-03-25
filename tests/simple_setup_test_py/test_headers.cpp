@@ -7,10 +7,6 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
-extern "C"
-{
-#include <igraph/igraph.h>
-}
 
 TEST_CASE("TESTS ARE RUN", "[general]")
 {

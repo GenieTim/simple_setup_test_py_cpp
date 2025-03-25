@@ -24,16 +24,6 @@ endif()
 # add dependencies
 include(${CMAKE_CURRENT_SOURCE_DIR}/../../vendor/CMakeLists.txt)
 
-add_dependencies(simple_setup_test_py igraph)
-include_directories(${igraph_INCLUDE_DIRS})
-add_dependencies(simple_setup_test_py nlopt)
-include_directories(${nlopt_INCLUDE_DIRS})
-
-target_link_libraries(simple_setup_test_py PUBLIC 
-	${igraph_LIBRARIES} 
-	${nlopt_LIBRARIES}
-)
-
 # add_dependencies(simple_setup_test_py Eigen3::Eigen)
 
 # link Eigen libraries. Difficulty due to Windows GitHub Action, somehow.
@@ -47,8 +37,6 @@ else()
 	message(STATUS "Eigen include directories: ${EIGEN3_INCLUDE_DIRS}, libraries ${EIGEN3_LIBRARIES}")
 endif()
 # Eigen3::Eigen 
-
-message("simple_setup_test_py includes igraph from ${igraph_INCLUDE_DIRS}, nlopt from ${nlopt_INCLUDE_DIRS}")
 
 # optional additional dependencies
 find_package(OpenMP)
@@ -111,9 +99,3 @@ if (LEAK_ANALYSIS)
 		-fsanitize=address
 	)
 endif()
-
-# add other needed packages
-# target_link_libraries(simple_setup_test_py 
-# 	PRIVATE
-# )
-# target_link_libraries(simple_setup_test_py ${igraph_LIBRARIES})

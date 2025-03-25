@@ -17,7 +17,6 @@ cmake_args = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
     "-Dvendor_suffix=-skbuild-{}".format(platform.system()),
 ]
-# cmake_args = ["-Digraph_DEBUG=ON", "-DCMAKE_FIND_DEBUG_MODE=ON"]
 if os.environ.get("CMAKE_ARGS"):
     cmake_args.extend(os.environ.get("CMAKE_ARGS").split())
 
@@ -39,34 +38,6 @@ if os.getenv("VCPKG_ROOT"):
         )
 else:
     print("VCPKG_ROOT not set. Not using vcpk dependencies.")
-
-# delete vendor caches — this is useful if you compile
-# this project using CMake (e.g. for tests) as well as skbuild,
-# as the two build directories of vendor do not interact well.
-vendor_files_to_delete = [
-    os.path.abspath(
-        os.path.join(
-            os.path.dirname(__file__),
-            "vendor/igraph-skbuild-{}/src/igraphLib-build".format(platform.system()),
-        )
-    ),
-    os.path.abspath(
-        os.path.join(
-            os.path.dirname(__file__),
-            "vendor/nlopt-skbuild-{}/src/nloptLib-build".format(platform.system()),
-        )
-    ),
-]
-for vendor_file in vendor_files_to_delete:
-    if os.path.exists(vendor_file):
-        try:
-            shutil.rmtree(vendor_file)
-        except Exception:
-            warnings.warn(
-                "Could not delete directory {}. Errors incoming.".format(vendor_file)
-            )
-    else:
-        print("No need to delete {}".format(vendor_file))
 
 # skbuildCaches = os.path.abspath(os.path.join(
 #     os.path.dirname(__file__), '_skbuild'))
@@ -154,6 +125,7 @@ class CMakeBuild(build_ext):
                 # import ninja
                 # ninja_executable_path = Path(ninja.BIN_DIR) / "ninja"
                 import shutil
+
                 ninja_executable_path = shutil.which("ninja")
 
                 if ninja_executable_path:
@@ -228,6 +200,7 @@ class CMakeBuild(build_ext):
             ["cmake", "--build", ".", *build_args], cwd=build_temp, check=True
         )
 
+
 setup(
     name="simple_setup_test_py",
     version=VERSION,
@@ -249,8 +222,9 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-        "Operating System :: OS Independent"
+        "Operating System :: OS Independent",
     ],
-
 )

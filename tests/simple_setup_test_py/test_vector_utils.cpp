@@ -4,10 +4,6 @@
 #include <iostream>
 #include <random>
 #include <string>
-extern "C"
-{
-#include <igraph/igraph.h>
-}
 
 #include <Eigen/Dense>
 
